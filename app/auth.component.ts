@@ -14,7 +14,7 @@ import * as firebase from 'firebase/app';
     <br/><br/>
     <button (click)="login()">Login</button>
     <br/><br/>
-    <button (click)="register(email,password)">Register</button>
+    <button (click)="register()">Register</button>
     <br/><br/>
     <button (click)="logout()">Logout</button>
   `,
@@ -31,9 +31,12 @@ export class AuthComponent  {
   }
 
   login() {
+    this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password);
   }
   logout() {
+    this.afAuth.auth.signOut();
   }
   register() {
+    this.afAuth.auth.createUserWithEmailAndPassword(this.email, this.password);
   }
 }
