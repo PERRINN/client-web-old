@@ -12,7 +12,9 @@ import { ChatComponent }  from './chat.component';
 import { AuthComponent }  from './auth.component';
 import { UserComponent }  from './user.component';
 
-import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
 // Must export the config
 export const firebaseConfig = {
@@ -21,11 +23,6 @@ export const firebaseConfig = {
   databaseURL: "https://perrinn-d5fc1.firebaseio.com",
   storageBucket: "perrinn-d5fc1.appspot.com",
   messagingSenderId: "44958643568"
-};
-
-const myFirebaseAuthConfig = {
-  provider: AuthProviders.Password,
-  method: AuthMethods.Password,
 };
 
 @NgModule({
@@ -41,8 +38,10 @@ const myFirebaseAuthConfig = {
     BrowserModule,
     FormsModule,
     HttpModule,
-    AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig),
-    AppRoutingModule
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

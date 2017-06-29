@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { Observable } from 'rxjs/Observable';
+import { AngularFireAuth } from 'angularfire2/auth';
+import * as firebase from 'firebase/app';
 
 @Component({
   selector: 'auth',
   template: `
     <div style="width:200px">
-    <div style="font-size:8px"> {{ (af.auth | async)?.uid }} </div>
+    <div style="font-size:8px"> {{ (user | async)?.uid }} </div>
     <input [(ngModel)]="this.email" style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email"/>
     <br/><br/>
     <input [(ngModel)]="this.password" style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password"/>
@@ -19,16 +21,19 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 })
 
 export class AuthComponent  {
+
   email="";
   password="";
-  constructor(public af: AngularFire) {}
+  user: Observable<firebase.User>;
+
+  constructor(public afAuth: AngularFireAuth) {
+    this.user = afAuth.authState;
+  }
+
   login() {
-    this.af.auth.login({email: this.email,password: this.password});
   }
   logout() {
-     this.af.auth.logout();
   }
   register() {
-     this.af.auth.createUser({email: this.email,password: this.password});
   }
 }

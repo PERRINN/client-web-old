@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
+import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
 
 @Component({
   selector: 'user',
@@ -15,8 +15,8 @@ import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
 })
 export class UserComponent {
   item: FirebaseObjectObservable<any>;
-  constructor(af: AngularFire) {
-    this.item = af.database.object('/users');
+  constructor(db: AngularFireDatabase) {
+    this.item = db.object('/users');
   }
   save(newName: string) {
     this.item.set({ name: newName });
