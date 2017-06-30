@@ -1,35 +1,37 @@
 import { Component } from '@angular/core';
 import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
-import { Observable } from 'rxjs/Observable';
-import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 
 
 @Component({
   selector: 'user',
   template: `
-  <div style="font-size:8px"> {{ (user | async)?.uid }} </div>
-  <h5>{{ item | async | json }}</h5>
-  <input [(ngModel)]="this.firstName" type="text" #newname placeholder="First name" />
+  <div> {{ (item | async)?.firstName }} {{ (item | async)?.lastName }} </div>
+  <img src=this.photoURL style="border-radius:4px; opacity:1; width:90px" routerLink="/user" routerLinkActive="active">
   <br />
-  <input [(ngModel)]="this.lastName" type="text" #newsize placeholder="Last name" />
+  <input [(ngModel)]="this.firstName" placeholder="First name" />
+  <br />
+  <input [(ngModel)]="this.lastName" placeholder="Last name" />
+  <br />
+  <input [(ngModel)]="this.photoURL" placeholder="Photo URL" />
   <br />
   <button (click)="updateUserProfile()">Update profile</button>
   `,
 })
 export class UserComponent {
   item: FirebaseObjectObservable<any>;
-  user: Observable<firebase.User>;
   firstName= "";
   lastName= "";
+  photoURL= "";
+  userId = firebase.auth().currentUser.uid;
 
-  constructor(db: AngularFireDatabase, afAuth: AngularFireAuth) {
-    this.user = afAuth.authState;
-    this.item = db.object('/users/123');
-    this.firstName = "Nicolas";
-    this.lastName = "Perrin";
+  constructor(db: AngularFireDatabase) {
+    this.item = db.object('users/' + this.userId);
   }
+
   updateUserProfile() {
-    this.item.update({ firstName: this.firstName, lastName: this.lastName });
+    this.item.update({
+      firstName: this.firstName, lastName: this.lastName, photoURL: this.photoURL
+    });
   }
 }

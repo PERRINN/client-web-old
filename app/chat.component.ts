@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import * as firebase from 'firebase/app';
 
 @Component({
   selector: 'chat',
@@ -17,16 +18,14 @@ import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable }
 })
 export class ChatComponent {
   draftMessage: string;
-  user: FirebaseObjectObservable<any>;
   messages: FirebaseListObservable<any>;
   constructor(db: AngularFireDatabase) {
-    this.user = db.object('/user');
     this.messages = db.list('/messages');
     this.draftMessage = "";
   }
   addMessage() {
     if (this.draftMessage!="") {
-    this.messages.push({ text: this.draftMessage, sender: "Nicolas" });
+    this.messages.push({ text: this.draftMessage, sender: firebase.auth().currentUser.uid });
     this.draftMessage = "";
     }
   }
