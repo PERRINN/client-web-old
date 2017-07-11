@@ -1,15 +1,17 @@
 import { NgModule }              from '@angular/core';
 import { RouterModule, Routes }  from '@angular/router';
-import { AuthComponent }   from './auth.component';
-import { ChatComponent }     from './chat.component';
+import { LoginComponent }   from './login.component';
+import { ChatComponent } from './chat.component';
 import { UserComponent } from './user.component';
+import { TeamComponent } from './team.component';
 
 const appRoutes: Routes = [
-  { path: 'chat/:id', component: ChatComponent },
-  { path: 'auth', component: AuthComponent },
+  { path: 'chat', component: ChatComponent },
   { path: 'user', component: UserComponent },
-  { path: '',   redirectTo: '/chat', pathMatch: 'full' },
-  { path: '**', component: ChatComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'team', component: TeamComponent },
+  { path: '',   redirectTo: '/login', pathMatch: 'full' },
+  { path: '**', component: LoginComponent }
 ];
 
 @NgModule({

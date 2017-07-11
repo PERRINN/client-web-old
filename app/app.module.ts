@@ -9,7 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { TeamComponent }  from './team.component';
 import { MemberComponent }  from './member.component';
 import { ChatComponent }  from './chat.component';
-import { AuthComponent }  from './auth.component';
+import { LoginComponent }  from './login.component';
 import { UserComponent }  from './user.component';
 
 import { AngularFireModule } from 'angularfire2';
@@ -19,7 +19,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 // Must export the config
 export const firebaseConfig = {
   apiKey: "AIzaSyAoG3PvimV926EgWlGvpzXrZAkOi1uWdcs",
-  authDomain: "perrinn-d5fc1.firebaseapp.com",
+  authDodash: "perrinn-d5fc1.firebaseapp.com",
   databaseURL: "https://perrinn-d5fc1.firebaseio.com",
   storageBucket: "perrinn-d5fc1.appspot.com",
   messagingSenderId: "44958643568"
@@ -31,7 +31,7 @@ export const firebaseConfig = {
     TeamComponent,
     MemberComponent,
     ChatComponent,
-    AuthComponent,
+    LoginComponent,
     UserComponent,
   ],
   imports: [
