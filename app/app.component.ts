@@ -9,8 +9,8 @@ import { Router } from '@angular/router'
   selector: 'app-root',
   template: `
   <div id='main_container'>
-    <div id='middle_column'>
-      <div id='menu'>
+    <div id='middle_column' class="container-fluid row d-flex-column">
+      <div id='menu' class="col-sm-12">
         <member></member>
         <div style="float: left; width: 45px; margin-right: 15px; margin-bottom: 20px;">
         <img src="./../assets/App icons/icon_chat_01.svg" style="width:45px" routerLink="/chat" routerLinkActive="active">
@@ -34,7 +34,7 @@ import { Router } from '@angular/router'
         </div>
         <div style="color:white; clear:left; font-size:10px">{{ (currentTeam | async)?.name }}</div>
       </div>
-      <div id='app_container'>
+      <div id='app_container' class="col-sm-12">
         <router-outlet></router-outlet>
       </div>
     </div>
