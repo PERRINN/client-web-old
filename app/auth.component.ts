@@ -6,8 +6,8 @@ import * as firebase from 'firebase/app';
 @Component({
   selector: 'auth',
   template: `
-    <div style="width:200px">
-    <div style="font-size:8px"> {{ (user | async)?.uid }} </div>
+    <div> {{ (user | async)?.email }} </div>
+    <br/><br/>
     <input [(ngModel)]="this.email" style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email"/>
     <br/><br/>
     <input [(ngModel)]="this.password" style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password"/>

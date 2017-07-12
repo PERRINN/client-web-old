@@ -1,24 +1,18 @@
 <div id='main_container'>
-  <div class="row">
-    <div id='left_column' class="col-sm-2">
-      <team></team>
+  <div id='left_column'>
+    <team></team>
+  </div>
+  <div id='right_column'>
+    <div id='menu'>
+      <member></member>
+      <img src="./../assets/App icons/icon_chat_01.svg" style="width:45px" routerLink="/chat" routerLinkActive="active">
+      <img src="./../assets/App icons/icon_maps_01.svg" style="width:45px">
+      <img src="./../assets/App icons/icon_share_01.svg" style="width:45px">
+      <img src="./../assets/App icons/icon_images_02.svg" style="width:45px">
+      <img src="./../assets/App icons/icon_winner_gradient.svg" style="width:45px; border-radius:4px;" routerLink="/auth" routerLinkActive="active">
     </div>
-    <div id='right_column' class="col-sm-10">
-      <div id='menu'>
-        <member></member>
-        <img src="./../assets/App icons/icon_chat_01.svg" style="width:45px" routerLink="/chat" routerLinkActive="active">
-        <img src="./../assets/App icons/icon_activity.svg" style="width:45px">
-        <img src="./../assets/App icons/icon_documents.svg" style="width:45px">
-        <img src="./../assets/App icons/icon_calendar.svg" style="width:45px">
-        <img src="./../assets/App icons/icon_guest.svg" style="width:45px">
-        <img src="./../assets/App icons/icon_maps_01.svg" style="width:45px">
-        <img src="./../assets/App icons/icon_images_01.svg" style="width:45px">
-        <img src="./../assets/App icons/icon_images_02.svg" style="width:45px">
-        <img src="./../assets/App icons/icon_winner_gradient.svg" style="width:45px; border-radius:4px;" routerLink="/auth" routerLinkActive="active">
-      </div>
-        <div id='app_container'>
-        <router-outlet></router-outlet>
-      </div>
+      <div id='app_container'>
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>
