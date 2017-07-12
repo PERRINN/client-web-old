@@ -12,27 +12,20 @@ import { Router } from '@angular/router'
     <div id='middle_column'>
       <div id='menu'>
         <member></member>
-        <div style="float: left; width: 45px; margin-right: 15px; margin-bottom: 20px;">
+        <div style="text-align: center; float: left; width: 60px; margin: 0 5px 20px 0; padding-top: 5px">
         <img src="./../assets/App icons/icon_chat_01.svg" style="width:45px" routerLink="/chat" routerLinkActive="active">
-        <div style="text-align: center; font-size: 9px; color: #FFF;">Chat</div>
+        <div style="font-size: 9px; color: #FFF;">Chat</div>
         </div>
-        <div style="float: left; width: 45px; margin-right: 15px; margin-bottom: 20px;">
-        <img src="./../assets/App icons/icon_maps_01.svg" style="width:45px">
-        <div style="text-align: center; font-size: 9px; color: #FFF;">Map</div>
+        <div style="text-align: center; float: left; width: 60px; margin: 0 5px 20px 0; padding-top: 5px">
+        <img src="./../assets/App icons/icon_share_01.svg" style="width:45px" routerLink="/wallet" routerLinkActive="active">
+        <div style="font-size: 9px; color: #FFF;">Wallet</div>
         </div>
-        <div style="float: left; width: 45px; margin-right: 15px; margin-bottom: 20px;">
-        <img src="./../assets/App icons/icon_share_01.svg" style="width:45px">
-        <div style="text-align: center; font-size: 9px; color: #FFF;">Wallet</div>
-        </div>
-        <div style="float: left; width: 45px; margin-right: 15px; margin-bottom: 20px;">
-        <img src="./../assets/App icons/icon_images_02.svg" style="width:45px">
-        <div style="text-align: center; font-size: 9px; color: #FFF;">Images</div>
-        </div>
-        <div style="float: left; width: 45px; margin-right: 15px; margin-bottom: 20px;">
+        <div style="text-align: center; float: left;  width: 60px; margin: 0 5px 20px 0; padding-top: 5px">
         <img src="./../assets/App icons/icon_winner_gradient.svg" style="width:45px; border-radius:4px;" routerLink="/team" routerLinkActive="active">
-        <div style="text-align: center; font-size: 9px; color: #FFF;">Team</div>
+        <div style="font-size: 9px; color: #FFF;">Team</div>
         </div>
-        <div style="color:white; clear:left; font-size:10px">{{ (currentTeam | async)?.name }}</div>
+        <div style="color:white; clear:left; float: left; font-size:10px;">{{ (currentTeam | async)?.name }}</div>
+        <div style="color:white; font-size:10px; float: right; cursor: pointer" (click)="this.router.navigate(['login']);">login/logout</div>
       </div>
       <div id='app_container'>
         <router-outlet></router-outlet>

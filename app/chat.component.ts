@@ -6,18 +6,20 @@ import { AngularFireAuth } from 'angularfire2/auth';
 @Component({
   selector: 'chat',
   template: `
-  <div class="chat">
+  <div class="chat" id="chat-scroll">
   <div>
   <ul style="list-style: none;">
     <li *ngFor="let message of teamMessages | async">
-    <img [src]="(db.object('users/' + message.author) | async)?.photoURL" style="display: inline; float: left; margin: 0 10px 10px 10px; opacity: 1; border-radius:4px; object-fit: cover; height:35px; width:35px">
+    <img [src]="(db.object('users/' + message.author) | async)?.photoURL" style="display: inline; float: left; margin: 0 10px 10px 10px; border-radius:4px; object-fit: cover; height:35px; width:35px">
     <div style="font-weight: bold; display: inline; float: left; margin-right: 10px">{{(db.object('users/' + message.author) | async)?.firstName}}</div>
     <div style="color: #AAA;">{{message.timestamp | date:'shortTime'}}</div>
     <div style="padding: 0 50px 10px 0;">{{message.text}}</div>
     </li>
   </ul>
-  <input style="border-style: solid; border-width: thin;" type="text" (keydown.enter)="addMessage()" [(ngModel)]="draftMessage" />
   </div>
+  </div>
+  <div class="chat-input">
+  <input style="border-style: solid; border-width: thin;" type="text" (keydown.enter)="addMessage()" [(ngModel)]="draftMessage" />
   </div>
     `,
 })
@@ -45,7 +47,7 @@ export class ChatComponent {
         this.photoURL = snapshot.photoURL;
         this.currentTeamID = snapshot.currentTeam;
         this.currentTeam = db.object('teams/' + this.currentTeamID);
-        this.teamMessages = this.db.list('teamMessages/' + this.currentTeamID);
+        this.teamMessages = this.db.list('teamMessages/' + this.currentTeamID, {query: {limitToLast: 50}});
       });
     });
   }
@@ -54,6 +56,8 @@ export class ChatComponent {
     if (this.draftMessage!="") {
     this.teamMessages.push({ timestamp: firebase.database.ServerValue.TIMESTAMP, text: this.draftMessage, author: this.currentUserID});
     this.draftMessage = "";
+    var element = document.getElementById("chat-scroll");
+    element.scrollTop = element.scrollHeight;
     }
   }
 

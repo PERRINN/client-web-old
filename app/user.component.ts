@@ -16,18 +16,13 @@ import { Router } from '@angular/router'
   <input [(ngModel)]="this.photoURL" placeholder="Photo URL" />
   </div>
   <div style="float: right; width: 50%;">
-  <img [src]="this.photoURL" style="opacity:1; object-fit:contain; height:200px; width:100%" routerLink="/user" routerLinkActive="active">
+  <img [src]="this.photoURL" style="object-fit:contain; height:200px; width:100%" routerLink="/user" routerLinkActive="active">
   </div>
   </div>
   <div>
   <div style="float: right; width: 50%;">
   <button (click)="updateUserProfile()">Update profile</button>
-  <button (click)="this.router.navigate(['login'])">Login/Logout</button>
-  </div>
-  </div>
-  <div>
-  <div style="float: right; width: 50%; text-align: right;">
-  <div style="font-size:9px">ID: {{ focusUserID }}</div>
+  <button (click)="removeMember(currentTeamID, focusUserID)" style="background-color:#d65555">Remove from this team</button>
   </div>
   </div>
   </div>
@@ -41,6 +36,7 @@ export class UserComponent {
   firstName: string;
   lastName: string;
   photoURL: string;
+  currentTeamID: string;
 
   constructor(public afAuth: AngularFireAuth, public db: AngularFireDatabase, public router: Router) {
     this.afAuth.authState.subscribe((auth) => {
@@ -50,6 +46,7 @@ export class UserComponent {
           this.firstName = "";
           this.lastName = "";
           this.photoURL = "./../assets/App icons/me.png";
+          this.currentTeamID = "";
         }
         else {
           db.object('users/' + auth.uid).subscribe( snapshot => {
@@ -61,6 +58,7 @@ export class UserComponent {
               this.firstName = snapshot2.firstName;
               this.lastName = snapshot2.lastName;
               this.photoURL = snapshot2.photoURL;
+              this.currentTeamID = snapshot.currentTeam;
             });
           });
         }
@@ -71,6 +69,10 @@ export class UserComponent {
     this.focusUser.update({
       firstName: this.firstName, lastName: this.lastName, photoURL: this.photoURL
     });
+  }
+
+  removeMember(teamID: string, userID: string) {
+    this.db.list('teamUsers/' + teamID).remove(userID);
   }
 
 }

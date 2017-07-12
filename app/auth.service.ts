@@ -24,4 +24,7 @@ export class AuthenticationService  {
   register(email: string, password: string) {
     this.afAuth.auth.createUserWithEmailAndPassword(email, password);
   }
+  sendEmailVerification() {
+    firebase.auth().currentUser.sendEmailVerification();
+  }
 }

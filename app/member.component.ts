@@ -8,9 +8,9 @@ import { AngularFireAuth } from 'angularfire2/auth';
   selector: 'member',
   template: `
   <ul class="members" style="float: left;">
-    <li *ngFor="let user of teamUsers | async" style="float: left; width: 45px; margin-right: 15px; margin-bottom: 20px;">
-      <img [src]="getPhotoURL(user.$key)" (click)="currentUser.update({focusUserID: user.$key})" style="opacity: 1; border-radius:3px; object-fit: cover; height:45px; width:45px" routerLink="/user" routerLinkActive="active">
-      <div style="text-align: center; font-size: 9px; color: #FFF;">{{ getFirstName(user.$key) }}{{ (user.leader? " *" : "") }}</div>
+    <li *ngFor="let user of teamUsers | async" style="text-align: center; float: left; width: 60px; margin: 0 5px 20px 0; padding-top: 5px">
+      <img [src]="getPhotoURL(user.$key)" (click)="currentUser.update({focusUserID: user.$key})" style="border-radius:3px; object-fit: cover; height:45px; width:45px" routerLink="/user" routerLinkActive="active">
+      <div style="font-size: 9px; color: #FFF;">{{ getFirstName(user.$key) }}{{ (user.leader? " *" : "") }}</div>
     </li>
   </ul>
 `,
@@ -32,7 +32,7 @@ export class MemberComponent  {
       if (auth == null) {
         this.currentUserID = "";
         this.currentTeamID = "";
-        this.teamUsers = this.db.list('teamUsers/' + this.currentTeamID);
+        this.teamUsers = null;
       }
       else {
         this.currentUserID = auth.uid;

@@ -3,13 +3,14 @@ import { AngularFireDatabase, FirebaseObjectObservable, FirebaseListObservable }
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { Router } from '@angular/router';
 
 
 @Component({
   selector: 'team',
   template: `
   <ul class="teams">
-    <h6 style="padding:7px; color:#AAA;">TEAMS</h6>
+    <h6 style="padding:7px; color:#AAA;">MY TEAMS</h6>
     <li *ngFor="let team of userTeams | async"
       [class.selected]="team.$key === currentTeamID"
       (click)="currentUser.update({currentTeam: team.$key})">
@@ -17,11 +18,8 @@ import { AngularFireAuth } from 'angularfire2/auth';
     </li>
   </ul>
   <div>
-  <div style="float: left; width: 50%;">
-  <input [(ngModel)]="this.joinTeamID" placeholder="Team ID" />
-  </div>
   <div style="float: right; width: 50%;">
-  <button (click)="joinTeam()">Join a team</button>
+  <button (click)="this.router.navigate(['followTeam'])">Follow a team...</button>
   </div>
   </div>
   <div>
@@ -29,22 +27,14 @@ import { AngularFireAuth } from 'angularfire2/auth';
   <input [(ngModel)]="this.newTeam" style="text-transform:uppercase" placeholder="Team name" />
   </div>
   <div style="float: right; width: 50%;">
-  <button (click)="createNewTeam()">Create a new team</button>
+  <button (click)="createNewTeam()">Create a new team...</button>
   </div>
   </div>
   <div class="teamProfile">
   <div class="titleSeperator">{{ (currentTeam | async)?.name }}</div>
   <div>
-  <div style="float: left; width: 50%;">
-  <input [(ngModel)]="this.newMemberID" placeholder="New member ID" />
-  </div>
   <div style="float: right; width: 50%;">
-  <button (click)="addTeamMember(currentTeamID, newMemberID)">Add a team member</button>
-  </div>
-  </div>
-  <div>
-  <div style="float: right; width: 50%; text-align: right;">
-  <div style="font-size:9px">ID: {{currentTeamID}}</div>
+  <button (click)="this.router.navigate(['addMember'])">Add a member to this team...</button>
   </div>
   </div>
   <div class="titleSeperator">ORGANISTION</div>
@@ -77,10 +67,10 @@ export class TeamComponent  {
   teams: FirebaseListObservable<any>;
   teamUsers: FirebaseListObservable<any>;
   newMemberID: string;
-  joinTeamID: string;
+  followTeamID: string;
   newTeam: string;
 
-  constructor(public afAuth: AngularFireAuth, public db: AngularFireDatabase) {
+  constructor(public afAuth: AngularFireAuth, public db: AngularFireDatabase, public router: Router) {
     this.afAuth.authState.subscribe((auth) => {
       this.currentUserID = auth.uid;
       this.currentUser = db.object('users/' + (auth ? auth.uid : "logedout"));
@@ -108,9 +98,9 @@ export class TeamComponent  {
     this.db.list('ids/').remove();
   }
 
-  joinTeam() {
-    this.userTeams.update(this.joinTeamID, {status: "confirmed"});
-    this.currentUser.update({currentTeam: this.joinTeamID});
+  followTeam() {
+    this.userTeams.update(this.followTeamID, {status: "confirmed"});
+    this.currentUser.update({currentTeam: this.followTeamID});
   }
 
   getTeamName (ID: string) :string {
