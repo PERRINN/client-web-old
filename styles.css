@@ -14,24 +14,16 @@ body {
   margin: 0;
 }
 #main_container {
-  max-height: 100%;
-  max-width: 100%;
-  display: flex;
-  flex-wrap: nowrap;
-  flex-direction: row;
 }
 #left_column {
   background: #444;
   color: #AAA;
   min-height: 100vh;
-  padding: 10px;
+  padding:30px;
 }
 #right_column {
   min-height: 100vh;
-  flex-grow: 1;
-  display: flex;
-  flex-wrap: nowrap;
-  flex-direction: column;
+  padding:0;
 }
 #menu {
   color: #FFF;

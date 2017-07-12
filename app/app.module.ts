@@ -16,6 +16,8 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 // Must export the config
 export const firebaseConfig = {
   apiKey: "AIzaSyAoG3PvimV926EgWlGvpzXrZAkOi1uWdcs",
@@ -42,6 +44,7 @@ export const firebaseConfig = {
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AppRoutingModule,
+    NgbModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
